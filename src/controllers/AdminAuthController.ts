@@ -1,7 +1,7 @@
 require('dotenv').config()
 import {Request, Response} from 'express';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 import { getAdmin, createAdmin, getAdminByEmail } from '../service/adminService';
 import { UserRole } from '../types/UserTypes';
 
