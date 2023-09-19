@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 const server = http.createServer(app);
 
 // const host = '192.168.1.32';
-const port = 8080;
+const port = 3000;
 
 const connectDB = async () => {
     try {
