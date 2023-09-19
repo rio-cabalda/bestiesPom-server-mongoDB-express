@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
-const host = '192.168.1.32';
+// const host = '192.168.1.32';
 const port = 8080;
 
 
@@ -46,7 +46,7 @@ mongoose.connect(config.mongo.url,config.mongo.options)
     });
 
     // Start the server after MongoDB connection is established
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });
   })
@@ -55,9 +55,9 @@ mongoose.connect(config.mongo.url,config.mongo.options)
   });
 mongoose.connection.on('error',(error: Error)=> console.log('mongo connection failed: ',error));
 
-server.listen(port,host, ()=>{
-    console.log(`Server is running on http://${host}:${port}`);
-})
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
 
 app.use('/',router());
 
