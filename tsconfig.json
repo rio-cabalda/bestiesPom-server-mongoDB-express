@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
+         "module": "commonjs",
+        "moduleResolution": "node",
         "baseUrl": "src",
-        "outDir": "dist",
+        "outDir": "./dist",
         "sourceMap": true,
         "noImplicitAny": true,
     },
