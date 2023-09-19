@@ -2,13 +2,13 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-const http = require('http') ;
+const http = require('http');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
-import router from './router';
-import config from './config/config';
+const router = require('./router');
+const config = require('./config/config');
 
 
 // This to put in .env 
