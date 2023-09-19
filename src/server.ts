@@ -7,8 +7,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
-const router = require('./router')
-const config = require('./config/config');
+import router from './router';
+import config from './config/config';
 
 
 // This to put in .env 
