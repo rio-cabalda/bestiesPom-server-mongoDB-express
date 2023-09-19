@@ -28,36 +28,21 @@ const server = http.createServer(app);
 // const host = '192.168.1.32';
 const port = 8080;
 
+const connectDB = async () => {
+    try {
+      const conn = await mongoose.connect(config.mongo.url);
+      console.log(`MongoDB Connected: ${conn.connection.host}`);
+    } catch (error) {
+      console.log(error);
+      process.exit(1);
+    }
+  }
 
-
-// const MONGO_URL = 'mongodb+srv://rjcabalda:macie040921@cluster0.9wlmdtk.mongodb.net/?retryWrites=true&w=majority';
-
-mongoose.Promise = Promise;
-mongoose.connect(config.mongo.url,config.mongo.options)
-.then(() => {
-    console.log('Connected to MongoDB');
-    
-    // Middleware and route setup
-    app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
-    
-    app.get('/', (req, res) => {
-      res.send('Hello, World!');
-    });
-
-    // Start the server after MongoDB connection is established
+  connectDB().then(() => {
     server.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Error connecting to MongoDB:', err);
-  });
-mongoose.connection.on('error',(error: Error)=> console.log('mongo connection failed: ',error));
-
-server.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
+        console.log("listening for requests");
+    })
+})
 
 app.use('/',router());
 
