@@ -2,11 +2,12 @@
   "name": "mongodbserver",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./src/server.js",
     "dev": "nodemon",
-    "build": "tsc --build"
+    "build": "tsc --build",
+    "postbuild": "cd dist && npm install"
   },
   "keywords": [],
   "author": "",
