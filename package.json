@@ -1,12 +1,12 @@
 {
-  "name": "mongodbserver",
+  "name": "bestiespomserver",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
     "start": "node dist/src/server.js",
-    "build": "tsc && cd dist && npm install",
+    "build": "tsc --build",
     "dev": "nodemon"
   },
   "keywords": [],
