@@ -2,9 +2,9 @@
   "name": "mongodbserver",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "dist/src/server.js",
   "scripts": {
-    "start": "node",
+    "start": "node src/server.ts",
     "dev": "nodemon",
     "build": "tsc"
   },
