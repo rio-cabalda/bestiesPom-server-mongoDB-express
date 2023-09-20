@@ -14,7 +14,7 @@ const MONGO_HOST = process.env.MONGO_URL;
 
 const MONGO = {
     options: MONGO_OPTIONS,
-    url: `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}`
+    uri: `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}`
 }
 
 const SERVER_PORT = process.env.SERVER_PORT;
