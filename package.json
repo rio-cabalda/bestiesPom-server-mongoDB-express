@@ -1,13 +1,12 @@
 {
-  "name": "bestiespomserver",
+  "name": "mongodbserver",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
-  "type": "module",
+  "main": "server.js",
   "scripts": {
-    "start": "node dist/src/server.js",
-    "build": "tsc --build",
-    "dev": "nodemon"
+    "start": "node server.js",
+    "dev": "nodemon",
+    "build": "tsc --build"
   },
   "keywords": [],
   "author": "",
@@ -18,12 +17,9 @@
     "@types/compression": "^1.7.2",
     "@types/cookie-parser": "^1.4.3",
     "@types/cors": "^2.8.13",
-    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/lodash": "^4.14.197",
-    "@types/mongodb": "^4.0.7",
-    "@types/mongoose": "^5.11.97",
     "nodemon": "^3.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
