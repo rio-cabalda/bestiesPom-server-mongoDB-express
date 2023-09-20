@@ -5,10 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node server.js",
     "postbuild": "mv node_modules ./dist",
     "dev": "nodemon",
-    "build": "tsc"
+    "build": "tsc --build"
   },
   "keywords": [],
   "author": "",
