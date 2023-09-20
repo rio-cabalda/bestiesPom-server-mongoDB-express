@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
-         "module": "commonjs",
-        "moduleResolution": "node",
-        "baseUrl": "src",
-        "outDir": "./dist",
         "sourceMap": true,
-        "noImplicitAny": true,
-        "esModuleInterop": true
+        "target": "es6",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "baseUrl": "./src",
+        "esModuleInterop": true,
+        "resolveJsonModule": true
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*.ts", "./package.json"],
+    "exclude": ["node_modules"]
     
 }
