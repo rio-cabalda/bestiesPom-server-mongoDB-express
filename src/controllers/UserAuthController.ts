@@ -20,7 +20,7 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
         if (!passwordMatch) return res.status(401).json({ error: 'Incorrect password' });
    
         const token = jwt.sign({ user: user }, jwtSecret, { expiresIn: '1h' });
-        res.json({ message: "successfully logged in", token });
+        res.json({user: user, message: "successfully logged in", token });
       } catch (error) {
         res.status(500).json({ error: 'An error occurred' });
       }
