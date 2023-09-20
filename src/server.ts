@@ -11,7 +11,6 @@ import router from'./router';
 import config from './config/config';
 
 const app = express();
-
 app.use(cors({
     credentials: true,
 }))
