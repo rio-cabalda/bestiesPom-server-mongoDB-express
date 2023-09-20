@@ -22,11 +22,11 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 
-const port = 8080;
+const port = process.env.PORT || 3000;
 
 const connectDB = async () => {
     try {
-      const conn = await mongoose.connect(config.mongo.url);
+      const conn = await mongoose.connect(config.mongo.uri);
       console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
       console.log(error);
