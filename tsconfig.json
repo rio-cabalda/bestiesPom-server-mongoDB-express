@@ -1,14 +1,15 @@
 {
     "compilerOptions": {
-        "sourceMap": true,
-        "target": "es6",
-        "module": "commonjs",
-        "outDir": "./dist",
-        "baseUrl": "./src",
-        "esModuleInterop": true,
-        "resolveJsonModule": true
+        "target": "ES6",          
+        "module": "commonjs",     
+        "outDir": "./dist",      
+        "rootDir": "./src",       
+        "sourceMap": true,        
+        "strict": true,           
+        "esModuleInterop": true,  
+        "skipLibCheck": true,     
+        "forceConsistentCasingInFileNames": true
     },
     "include": ["src/**/*.ts", "./package.json"],
     "exclude": ["node_modules"]
-    
 }
