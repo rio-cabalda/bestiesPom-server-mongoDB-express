@@ -7,14 +7,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 const cors = require('cors');
-const router = require('./router');
-const config = require('./config/config');
+import router from'./router';
+import config from './config/config';
 
-
-// This to put in .env 
-// MONGO_URL in index.ts
-// SECRET_KEY in ./helpers/index
-// not yet done putting to .env
 const app = express();
 
 app.use(cors({
