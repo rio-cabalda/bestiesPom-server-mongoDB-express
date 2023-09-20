@@ -5,10 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "postbuild": "mv node_modules ./dist",
-    "dev": "nodemon",
-    "build": "tsc --build"
+    "start": "node dist/src/server.js",
+    "build": "tsc && npm run install-deps",
+    "install-deps": "cd dist && npm install --only=prod",
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
