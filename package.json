@@ -6,8 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node dist/src/server.js",
-    "build": "tsc && npm run install-deps",
-    "install-deps": "cd dist && npm install --only=prod",
+    "build": "tsc && cd dist && npm install",
     "dev": "nodemon"
   },
   "keywords": [],
