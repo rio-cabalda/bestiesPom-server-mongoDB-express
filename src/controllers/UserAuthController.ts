@@ -2,13 +2,12 @@ require('dotenv').config()
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { createUser, getUserByEmail } from '../service/usersService'
-import { UserRole,UserType } from '../types/UserTypes';
+import { createUser, getUserByEmail, getUserById } from '../service/usersService'
+import { AuthenticatedRequest, UserRole } from '../types/UserTypes';
 const saltRounds = 10;
 const jwtSecret = process.env.SERVER_TOKEN_SECRET;
 
  const signIn = async (req: express.Request, res: express.Response) => {
-
     try {
         const { email, password } = req.body;
         const user = await getUserByEmail(email);
@@ -20,16 +19,8 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
         if (!passwordMatch) return res.status(401).json({ error: 'Incorrect password' });
    
         const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: '1h' });
-
-        const responseUser = {
-          _id: user._id,
-          email: user.email,
-          firstname: user.firstname,
-          lastname: user.lastname,
-          cart: user.cart,
-        };
-
-        res.json({user: responseUser, message: "successfully logged in", accessToken });
+  
+        res.json({message: "successfully logged in", accessToken });
       } catch (error) {
         res.status(500).json({ error: 'An error occurred' });
       }
@@ -58,5 +49,16 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
     res.status(500).json({ error: 'An error occurred' });
   }
 }
+const userData = async (req: AuthenticatedRequest, res: express.Response) => {
+    try {
+      const {id} = req.user;
+      const user = await getUserById(id);
+      if (!user) return res.status(401).json({ error: 'User not exist' });
+      return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ error: 'An error occurred' });
+  }
+    
+}
 
-export default {signIn, signUp}
+export default {signIn, signUp, userData};
