@@ -17,8 +17,10 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
         const passwordMatch = await bcrypt.compare(password, user.password);
         
         if (!passwordMatch) return res.status(401).json({ error: 'Incorrect password' });
-   
-        const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: '1h' });
+
+        const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: 60 }); // Expires in 60 seconds (testing purposes)
+
+        // const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: '1h' });
   
         res.json({message: "successfully logged in", accessToken });
       } catch (error) {
