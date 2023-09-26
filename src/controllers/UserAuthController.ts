@@ -18,7 +18,7 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
         
         if (!passwordMatch) return res.status(401).json({ error: 'Incorrect password' });
 
-        const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: 60 }); // Expires in 60 seconds (testing purposes)
+        const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: 7*24*60*60 }); // Expires in 7days (testing purposes)
 
         // const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: '1h' });
   
