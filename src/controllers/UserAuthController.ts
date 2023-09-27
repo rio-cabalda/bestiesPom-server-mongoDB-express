@@ -1,13 +1,15 @@
 require('dotenv').config()
-import express from 'express';
+import {Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { createUser, getUserByEmail, getUserById } from '../service/usersService'
 import { AuthenticatedRequest, UserRole } from '../types/UserTypes';
+const cookieParser = require('cookie-parser');
+
 const saltRounds = 10;
 const jwtSecret = process.env.SERVER_TOKEN_SECRET;
 
- const signIn = async (req: express.Request, res: express.Response) => {
+ const signIn = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
         const user = await getUserByEmail(email);
@@ -18,9 +20,10 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
         
         if (!passwordMatch) return res.status(401).json({ error: 'Incorrect password' });
 
-        const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: 7*24*60*60 }); // Expires in 7days (testing purposes)
-
+        const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: '7d' }); // Expires in 7days (testing purposes)
         // const accessToken = jwt.sign({ user: user }, jwtSecret, { expiresIn: '1h' });
+
+        res.cookie('jwt', accessToken, { httpOnly: true }); // Set the JWT token as a cookie
   
         res.json({message: "successfully logged in", accessToken });
       } catch (error) {
@@ -29,7 +32,13 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
    
 }
 
- const signUp = async (req: express.Request, res: express.Response) => {
+const logout = (req:Request, res:Response) => {
+  res.clearCookie('jwt'); // Clear the JWT cookie
+  res.json({ message: 'Logged out successfully' });
+};
+
+
+ const signUp = async (req: Request, res: Response) => {
   try {
     const { firstname, lastname, birthdate, email, password } = req.body;
 
@@ -51,7 +60,7 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
     res.status(500).json({ error: 'An error occurred' });
   }
 }
-const userData = async (req: AuthenticatedRequest, res: express.Response) => {
+const userData = async (req: AuthenticatedRequest, res: Response) => {
     try {
       const {id} = req.user;
       const user = await getUserById(id);
@@ -63,4 +72,4 @@ const userData = async (req: AuthenticatedRequest, res: express.Response) => {
     
 }
 
-export default {signIn, signUp, userData};
+export default {signIn, logout, signUp, userData};
