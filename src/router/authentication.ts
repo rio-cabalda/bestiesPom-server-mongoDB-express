@@ -9,9 +9,14 @@ import { adminAuthentication, userAuthentication } from '../middlewares/AuthMidd
 
 export default (router: express.Router) => {
     router.post('/user/register',validate.signUp, authController.signUp);
-    router.post('/user/login',validate.signIn, authController.signIn);
-    router.get('/user/auth', userAuthentication, authController.userData);
     // authentication for new user
+    router.post('/user/login',validate.signIn, authController.signIn);
+    // log in user
+    router.post('/user/logout', authController.logout);
+    //log out user
+
+    router.get('/user/auth', userAuthentication, authController.userData);
+    // get the logged in user
    
 
     router.post('/admin/register',validate.signUp, adminController.adminSignUp);
