@@ -65,7 +65,14 @@ const userData = async (req: AuthenticatedRequest, res: Response) => {
       const {id} = req.user;
       const user = await getUserById(id);
       if (!user) return res.status(401).json({ error: 'User not exist' });
-      return res.status(200).json(user);
+      const responseUser = {
+        _id: user._id,
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        cart: user.cart
+      }
+      return res.status(200).json({user:responseUser});
   } catch (error) {
     return res.status(500).json({ error: 'An error occurred' });
   }
