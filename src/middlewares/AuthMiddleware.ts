@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { Request, Response, NextFunction } from 'express';
+import {  Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { getUserById } from '../service/usersService';
 import { getAdminById } from '../service/adminService';
