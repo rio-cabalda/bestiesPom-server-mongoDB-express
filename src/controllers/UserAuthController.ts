@@ -3,11 +3,13 @@ import {Request, Response} from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { createUser, getUserByEmail, getUserById } from '../service/usersService'
-import { AuthenticatedRequest, UserRole } from '../types/UserTypes';
+import { AuthenticatedRequest, UserRole,InvalidateTokenType } from '../types/UserTypes';
+import { InvalidateToken  } from '../models/InvalidateTokenModel';
 const cookieParser = require('cookie-parser');
 
 const saltRounds = 10;
 const jwtSecret = process.env.SERVER_TOKEN_SECRET;
+const invalidatedTokens: string[] = [];
 
  const signIn = async (req: Request, res: Response) => {
     try {
@@ -32,9 +34,35 @@ const jwtSecret = process.env.SERVER_TOKEN_SECRET;
    
 }
 
-const logout = (req:Request, res:Response) => {
-  res.clearCookie('jwt'); // Clear the JWT cookie
-  res.json({ message: 'Logged out successfully' });
+const logout = async (req:Request, res:Response) => {
+  try {
+      // Get the access token from the request (you can extract it from headers, cookies, etc.)
+    const token = req.headers.authorization?.split(' ')[1];
+    
+    if (!token) {
+      return res.status(401).json({ error: 'Authorization token not provided' });
+    }
+     // Find the InvalidToken document in the database or create it if it doesn't exist
+     let invalidTokenDocument: InvalidateTokenType | null = await InvalidateToken.findOne();
+      if (!invalidTokenDocument) {
+        invalidTokenDocument = await InvalidateToken.create({ invalidatedTokens: [] });
+      }
+      // Check if the token is already in the invalidatedTokens array
+      if (!invalidTokenDocument.invalidatedTokens.includes(token)) {
+        // If it's not in the array, add it
+        invalidTokenDocument.invalidatedTokens.push(token);
+
+        // Save the document
+        await invalidTokenDocument.save();
+      }
+
+     // Save the document
+    await invalidTokenDocument.save();
+
+    res.json({ message: 'Logged out successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred' });
+  }
 };
 
 
