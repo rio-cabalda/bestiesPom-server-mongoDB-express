@@ -19,14 +19,13 @@ export const getUserCart = async  (req:AuthenticatedRequest, res: Response) => {
   }
 }
 
-
 export const addToCart = async  (req:AuthenticatedRequest, res: Response) => {
     // TODO:
     // add populate function to show the products details in the cart
   try {
     const productId = req.params.id;
     const quantity = req.body.quantity;
-    const { id:userId} = req.user;
+    const { id:userId } = req.user;
 
     // Find the user by userId
     const user = await getUserById(userId);
@@ -61,6 +60,7 @@ export const addToCart = async  (req:AuthenticatedRequest, res: Response) => {
 
     // Save the updated user with the new cart items
     const updatedUser = await user.save();
+
     res.status(201).json({message: 'Product added to cart', product: updatedUser})
   } 
 catch (error) {
