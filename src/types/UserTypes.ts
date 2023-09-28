@@ -18,6 +18,7 @@ export type ProductType = Document & {
   rating: number;
 }
 
+
 export type CartItem = Document & {
   product: Types.ObjectId | ProductType;
   quantity: number;
@@ -42,6 +43,9 @@ export type AdminType = Document & {
   password: string;
 }
 
+export type InvalidateTokenType = Document &{
+  invalidatedTokens:string[];
+}
 
 export type AuthenticatedRequest = Request & {
   user: UserType;
