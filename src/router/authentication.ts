@@ -5,7 +5,7 @@ import adminController from '../controllers/AdminAuthController'
 import { getAllUsers } from '../controllers/adminController';
 import { addProducts } from '../controllers/productController';
 import { adminAuthentication, userAuthentication } from '../middlewares/AuthMiddleware';
-
+import checkInvalidatedToken from '../middlewares/checkInvalidatedToken';
 
 export default (router: express.Router) => {
     router.post('/user/register',validate.signUp, authController.signUp);
@@ -15,7 +15,7 @@ export default (router: express.Router) => {
     router.post('/user/logout', authController.logout);
     //log out user
 
-    router.get('/user/auth', userAuthentication, authController.userData);
+    router.get('/user/auth', checkInvalidatedToken, userAuthentication, authController.userData);
     // get the logged in user
    
 
