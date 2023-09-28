@@ -8,7 +8,7 @@ const checkInvalidatedToken = async(req:Request, res:Response, next:NextFunction
 
 
     if (!token) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        return res.status(401).json({ error: 'Unauthorized access' });
       }
       
     try {
