@@ -26,6 +26,7 @@ export type CartItem = Document & {
 
 export type UserType = Document & {
   role: string;
+  image: string;
   firstname: string;
   lastname: string;
   birthdate: Date;

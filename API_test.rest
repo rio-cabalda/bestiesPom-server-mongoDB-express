@@ -1,0 +1,4 @@
+###
+// TEST unsplash API
+GET https://api.unsplash.com/photos/random/?count=10&query=male&orientation=portrait
+Authorization: Client-ID s4uSfA2ywPdiiM6kASODW7QpkJDGRyA6-A-tbUfMUXo

@@ -74,14 +74,32 @@ const logout = async (req:Request, res:Response) => {
     const existUser = await getUserByEmail(email);
     if(existUser) return res.status(400).send({"error":"Email already exist"});
 
+    function generateImage(input:string) {
+      // Split the input string into words
+      const words = input.split(' ');
+    
+      // If there's only one word, return it as is
+      if (words.length === 1) {
+        return `https://ui-avatars.com/api/?name=${input}&&background=random&&bold=true&&format=svg`;
+      }
+      
+      // If there are multiple words, join them with '+'
+      const inputWord = words.join('+');
+      const generatedImage =`https://ui-avatars.com/api/?name=${inputWord}&&background=random&&bold=true&&format=svg`;
+
+      return generatedImage;
+    }
+
     createUser({
       role: UserRole.USER,
+      image: generateImage(firstname)? generateImage(firstname): 'https://pixsector.com/cache/50fcb576/av0cc3f7b41cb8510e35c.png',
       firstname,
       lastname,
       email,
       birthdate,
       password: hashedPassword,
     });
+    
 
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
@@ -96,6 +114,7 @@ const userData = async (req: AuthenticatedRequest, res: Response) => {
       const responseUser = {
         _id: user._id,
         email: user.email,
+        image: user.image,
         firstname: user.firstname,
         lastname: user.lastname,
         cart: user.cart

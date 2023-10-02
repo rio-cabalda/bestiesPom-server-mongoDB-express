@@ -12,6 +12,7 @@ export const cartItemSchema = new Schema<CartItem>({
 
 const UserSchema: Schema = new Schema({
   role: { type: String, required: true },
+  image: { type: String },
   firstname: { type: String, required: true },
   lastname: { type: String, required: true },
   birthdate: { type: String, required: true },
