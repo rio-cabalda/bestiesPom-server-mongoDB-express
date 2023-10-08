@@ -6,10 +6,9 @@ import { Types } from 'mongoose';
 import { cartItemSchema } from '../models/UserModel';
 
 export const getUserCart = async  (req:AuthenticatedRequest, res: Response) => {
-
   try {
-    const { id:userId } = req.user;
-    const user = await getUserById(userId).populate('cart.product');
+    const { _id } = req.user;
+    const user = await getUserById(_id).populate('cart.product');
 
     if (!user) return res.status(401).json({ error: 'User not exist' });
 
@@ -47,7 +46,6 @@ export const addToCart = async  (req:AuthenticatedRequest, res: Response) => {
     if (cartItemIndex !== -1) {
       // If the product is already in the cart, update the quantity
       const userCartQty = user.cart[cartItemIndex].quantity;
-     
       if((userCartQty + quantity) > product.stock) return res.status(400).json({message: `Invalid value. Total purchase is ${userCartQty+quantity}. Our product current stocks is ${product.stock}`});
       user.cart[cartItemIndex].quantity += quantity;
     } else {
@@ -74,8 +72,6 @@ export const clearCart = async  (req: AuthenticatedRequest, res: Response) => {
         const user = await getUserById(userId);
         
         if (!user) return res.status(401).json({ error: 'User not exist' });
-
-        console.log(user.cart);
 
         // Clear the cart items array while preserving the type
         user.cart.splice(0, user.cart.length); 
