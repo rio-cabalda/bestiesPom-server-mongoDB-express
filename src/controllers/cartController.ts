@@ -88,13 +88,16 @@ export const updateCart = async  (req: AuthenticatedRequest, res: Response) => {
     try {
         const cartItemId = req.params.id;
         const newQuantity = req.body.quantity;
+
         const {id} = req.user;
         const user = await getUserById(id);
         if (!user) return res.status(401).json({ error: 'User not exist' });
 
-        if(newQuantity === 0){ // delete the cart item in the cart
+        // DELETE the item in the cart.
+        // pass quantity = 0 to delete the item in the cart.
+        if(newQuantity === 0){ 
             const cartItemIndex = user.cart.findIndex((item) => item._id.toString() === cartItemId);
-
+            
             if (cartItemIndex === -1) return res.status(401).json({ error: 'Cart item not found' });
         
             // Remove the cart item from the cart array
@@ -106,17 +109,14 @@ export const updateCart = async  (req: AuthenticatedRequest, res: Response) => {
         }else{ // quantity is incrementing or decrementing
             const cartItem = user.cart.find((item) => item._id.toString() === cartItemId);
             if (!cartItem) return res.status(401).json({ error: 'Cart item not found' });
+            // // Update the quantity of the cart item
             cartItem.quantity = newQuantity;
-            return res.status(200).json(user)
+
+            // Save the updated user data
+            await user.save();
+            return res.status(200).json({message: 'Cart quantity updated'});
         }
 
-    } catch (error) {
-        return res.status(500).json({ error: 'An error occurred' });
-    }
-}
-export const deleteCartItem = async  (req: AuthenticatedRequest, res: Response) => {
-    try {
-        
     } catch (error) {
         return res.status(500).json({ error: 'An error occurred' });
     }
