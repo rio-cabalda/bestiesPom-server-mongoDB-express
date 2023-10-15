@@ -11,7 +11,4 @@ export default (router: Router) => {
     router.delete('/user/cart/clearcart',checkInvalidatedToken, userAuthentication ,clearCart);
 
     router.post('/user/cart/update/:id',checkInvalidatedToken, userAuthentication, updateCart); // this route has update quantity and delete item by passing 0 value of quantity.
-    router.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'public/index.html'));
-      });
 }
